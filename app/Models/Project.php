@@ -14,6 +14,6 @@ class ProjectModel extends Model
 
     public function technologies()
     {
-    return $this->belongsTo(Technology::class, 'foreign_key')->withTimestamps();;
+    return $this->belongsToMany(Technology::class, 'foreign_key');
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\SoftSkillResource;
-use App\Models\SoftSkillModel;
+use App\Models\SoftSkill as SoftSkillModel;
 
 use Illuminate\Http\Request;
 
@@ -16,8 +16,9 @@ class SoftSkill extends Controller
      */
     public function index()
     {
+        $softSkill = SoftSkillModel::paginate(5);
+        return  SoftSkillResource::collection( $softSkill);
        
-        return SoftSkillResource::collection(SoftSkillModel::orderByDesc('created_at')->get());
     }
 
     /**
@@ -38,25 +39,25 @@ class SoftSkill extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SoftSkillModel  $soft_skill
+     * @param  \App\SoftSkillModel  $softSkill
      * @return \Illuminate\Http\Response
      */
-    public function show(SoftSkillModel $soft_skill)
+    public function show(SoftSkillModel $softSkill)
     {
-        return new SoftSkillResource($soft_skill);
+        return new SoftSkillResource($softSkill);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SoftSkillModel  $soft_skill
+     * @param  \App\SoftSkillModel  $softSkill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SoftSkillModel $soft_skill)
+    public function update(Request $request, SoftSkillModel $softSkill)
     {
         
-        if($soft_skill->update($request->all())){
+        if($softSkill->update($request->all())){
             return response()->json([
                 'success'=>'updated succefuly'
             ],200);
@@ -66,12 +67,12 @@ class SoftSkill extends Controller
     /**
      * Remove the specified resource from storage.
      *
-    * @param  \App\SoftSkillModel  $soft_skill
+    * @param  \App\SoftSkillModel  $softSkill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SoftSkillModel $soft_skill)
+    public function destroy(SoftSkillModel $softSkill)
     {
-        if($soft_skill->delete()){
+        if($softSkill->delete()){
             return response()->json([
                 'success'=>'deleted succefuly'
             ],200);
