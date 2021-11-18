@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TechnologyResource;
+use App\Models\Technology as TechnologyModel;
 use Illuminate\Http\Request;
 
 class Technology extends Controller
@@ -13,7 +15,14 @@ class Technology extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $technologySkill = TechnologyModel::paginate(5);
+            return  TechnologyResource::collection($technologySkill);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 400);
+        }
     }
 
     /**
@@ -24,7 +33,17 @@ class Technology extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+            TechnologyModel::create($request->all());
+            return response()->json([
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**

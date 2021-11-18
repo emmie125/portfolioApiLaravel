@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SoftSkill;
+use App\Http\Controllers\HardSkill;
 use App\Http\Controllers\Contact;
 use App\Http\Controllers\NewLetter;
 use App\Http\Controllers\Project;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::apiResource('soft_skills', SoftSkill::class);
+Route::apiResource('hard_skills', HardSkill::class);
 Route::apiResource('contacts', Contact::class);
 Route::apiResource('new_letters',NewLetter::class);
 Route::apiResource('projects',Project::class);

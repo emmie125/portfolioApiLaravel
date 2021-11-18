@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProjectResource;
+use App\Models\Project as ProjectModel;
 use Illuminate\Http\Request;
 
 class Project extends Controller
@@ -13,7 +15,14 @@ class Project extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $projectSkill = ProjectModel::paginate(5);
+            return  ProjectResource::collection($projectSkill);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 400);
+        }
     }
 
     /**
@@ -24,7 +33,16 @@ class Project extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            ProjectModel::create($request->all());
+            return response()->json([
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**

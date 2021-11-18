@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\HardSkillResource;
+use App\Models\HardSkill as HardSkillModel;
 use Illuminate\Http\Request;
 
 class HardSkill extends Controller
@@ -13,7 +15,15 @@ class HardSkill extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $hardSkill = HardSkillModel::paginate(5);
+        return  HardSkillResource::collection($hardSkill);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 400);
+        }
     }
 
     /**
@@ -24,7 +34,16 @@ class HardSkill extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            HardSkillModel::create($request->all());
+            return response()->json([
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**

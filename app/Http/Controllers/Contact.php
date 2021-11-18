@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ContactResource;
+use App\Models\Contact as ContactModel;
 use Illuminate\Http\Request;
 
 class Contact extends Controller
@@ -13,7 +15,15 @@ class Contact extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $contactSkill = ContactModel::paginate(5);
+        return  ContactResource::collection($contactSkill);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 400);
+        }
     }
 
     /**
@@ -24,8 +34,18 @@ class Contact extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            ContactModel::create($request->all());
+            return response()->json([
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
+
 
     /**
      * Display the specified resource.

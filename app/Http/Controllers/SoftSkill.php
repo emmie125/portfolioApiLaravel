@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
+
 use App\Http\Resources\SoftSkillResource;
 use App\Models\SoftSkill as SoftSkillModel;
 
@@ -16,9 +18,14 @@ class SoftSkill extends Controller
      */
     public function index()
     {
-        $softSkill = SoftSkillModel::paginate(5);
-        return  SoftSkillResource::collection( $softSkill);
-       
+        try {
+            $softSkill = SoftSkillModel::paginate(5);
+            return  SoftSkillResource::collection($softSkill);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 400);
+        }
     }
 
     /**
@@ -29,11 +36,16 @@ class SoftSkill extends Controller
      */
     public function store(Request $request)
     {
-        if(SoftSkillModel::create($request->all())){
+        try {
+            SoftSkillModel::create($request->all());
             return response()->json([
-                'success'=>'created succefuly'
-            ],200);
-        };
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**
@@ -56,26 +68,30 @@ class SoftSkill extends Controller
      */
     public function update(Request $request, SoftSkillModel $softSkill)
     {
-        
-        if($softSkill->update($request->all())){
+        try {
+            $softSkill->update($request->all());
             return response()->json([
-                'success'=>'updated succefuly'
-            ],200);
-        };
+                'success' => 'updated succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th,
+            ], 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-    * @param  \App\SoftSkillModel  $softSkill
+     * @param  \App\SoftSkillModel  $softSkill
      * @return \Illuminate\Http\Response
      */
     public function destroy(SoftSkillModel $softSkill)
     {
-        if($softSkill->delete()){
+        if ($softSkill->delete()) {
             return response()->json([
-                'success'=>'deleted succefuly'
-            ],200);
+                'success' => 'deleted succefuly'
+            ], 200);
         };
     }
 }

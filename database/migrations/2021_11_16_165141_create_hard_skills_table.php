@@ -18,6 +18,7 @@ class CreateHardSkillsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('image');
+            $table->dropColumn('image');
         });
     }
 

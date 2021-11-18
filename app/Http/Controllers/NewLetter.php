@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\NewsLetterResource;
-use App\Models\NewsLetterModel;
+use App\Models\NewsLetter as NewsLetterModel;
 use Illuminate\Http\Request;
 
 class NewLetter extends Controller
@@ -15,7 +15,15 @@ class NewLetter extends Controller
      */
     public function index()
     {
-        return NewsLetterResource::collection(NewsLetterModel::orderByDesc('created_at')->get());
+        try {
+            $newsLetterSkill = NewsLetterModel::paginate(5);
+        return  NewsLetterResource::collection($newsLetterSkill);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**
@@ -26,7 +34,16 @@ class NewLetter extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            NewsLetterModel::create($request->all());
+            return response()->json([
+                'success' => 'created succefuly'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'fail' => $th
+            ], 402);
+        }
     }
 
     /**
