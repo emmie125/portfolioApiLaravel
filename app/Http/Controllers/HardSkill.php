@@ -15,15 +15,13 @@ class HardSkill extends Controller
      */
     public function index()
     {
-        try {
-            $hardSkill = HardSkillModel::paginate(5);
+        $hardSkill = HardSkillModel::paginate(5);
         return  HardSkillResource::collection($hardSkill);
-
-        } catch (\Throwable $th) {
-            return response()->json([
-                'fail' => $th
-            ], 400);
-        }
+        // try {} catch (\Throwable $th) {
+        //     return response()->json([
+        //         'fail' => $th
+        //     ], 400);
+        // }
     }
 
     /**
