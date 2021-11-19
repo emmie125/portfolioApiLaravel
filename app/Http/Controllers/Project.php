@@ -50,10 +50,9 @@ class Project extends Controller
         }
         try {
             $technology_id = intVal($request->technology_id);
-            $technology = TechnologyModel::find($technology_id);
             $project = ProjectModel::create($request->all());
 
-            $project->technologies()->attach($technology->id);
+            $project->technologies()->attach($technology_id);
 
             return response()->json([
                 'success' => 'created succefuly'
