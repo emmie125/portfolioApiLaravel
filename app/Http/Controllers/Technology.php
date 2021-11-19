@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\TechnologyResource;
 use App\Models\Technology as TechnologyModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class Technology extends Controller
 {
@@ -33,6 +34,17 @@ class Technology extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required', 
+            'image' => 'required|mimes:jpeg,jpg,png,gif', 
+            'id_hard' => 'required|exists:hard_skills,id'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'fail' => $validator->errors(),
+            ], 404);
+        }
 
         try {
             TechnologyModel::create($request->all());

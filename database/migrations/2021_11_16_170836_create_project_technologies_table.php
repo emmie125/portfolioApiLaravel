@@ -16,8 +16,8 @@ class CreateProjectTechnologiesTable extends Migration
         Schema::create('project_technologies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('id_project')->constrained('projects');
-            $table->foreignId('id_technology')->constrained('technologies');
+            $table->foreignId('project_id')->constrained('projects');
+            $table->foreignId('technology_id')->constrained('technologies');
         });
     }
 

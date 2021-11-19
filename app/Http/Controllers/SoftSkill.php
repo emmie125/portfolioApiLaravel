@@ -36,7 +36,17 @@ class SoftSkill extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:soft_skills',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'fail' => $validator->errors(),
+            ], 404);
+        }
+
         try {
+           
             SoftSkillModel::create($request->all());
             return response()->json([
                 'success' => 'created succefuly'

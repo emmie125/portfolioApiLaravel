@@ -14,6 +14,6 @@ class Project extends Model
 
     public function technologies()
     {
-    return $this->belongsToMany(Technology::class, 'foreign_key');
+    return $this->belongsToMany(Technology::class, 'project_technologies');
     }
 }

@@ -18,8 +18,8 @@ class CreateContactsTable extends Migration
             $table->timestamps();
             $table->string('email');
             $table->string('username');
-            $table->string('messege');
-            $table->renameColumn('messege', 'message');
+            $table->string('message');
+           
         });
     }
 

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProjectResource;
 use App\Models\Project as ProjectModel;
+use App\Models\Technology as TechnologyModel;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class Project extends Controller
 {
@@ -33,8 +36,25 @@ class Project extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'technology_id' => 'exists:technologies,id', 
+            'title' => 'required', 
+            'image' => 'required|mimes:jpeg,jpg,png,gif', 
+            'description'=> 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'fail' => $validator->errors(),
+            ], 404);
+        }
         try {
-            ProjectModel::create($request->all());
+            $technology_id = intVal($request->technology_id);
+            $technology = TechnologyModel::find($technology_id);
+            $project = ProjectModel::create($request->all());
+
+            $project->technologies()->attach($technology->id);
+
             return response()->json([
                 'success' => 'created succefuly'
             ], 200);

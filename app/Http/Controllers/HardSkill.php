@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\HardSkillResource;
 use App\Models\HardSkill as HardSkillModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HardSkill extends Controller
 {
@@ -17,11 +18,6 @@ class HardSkill extends Controller
     {
         $hardSkill = HardSkillModel::paginate(5);
         return  HardSkillResource::collection($hardSkill);
-        // try {} catch (\Throwable $th) {
-        //     return response()->json([
-        //         'fail' => $th
-        //     ], 400);
-        // }
     }
 
     /**
@@ -32,6 +28,15 @@ class HardSkill extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:hard_skills',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'fail' => $validator->errors(),
+            ], 404);
+        }
+        
         try {
             HardSkillModel::create($request->all());
             return response()->json([

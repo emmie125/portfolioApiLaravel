@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\NewsLetterResource;
 use App\Models\NewsLetter as NewsLetterModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class NewLetter extends Controller
 {
@@ -34,6 +35,15 @@ class NewLetter extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email:rfc,dns',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'fail' => $validator->errors(),
+            ], 404);
+        }
         try {
             NewsLetterModel::create($request->all());
             return response()->json([
