@@ -44,7 +44,7 @@ class Contact extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'fail' => $validator->errors(),
-            ], 404);
+            ], 422);
         }
 
         try {

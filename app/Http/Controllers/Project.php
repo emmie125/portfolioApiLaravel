@@ -46,7 +46,7 @@ class Project extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'fail' => $validator->errors(),
-            ], 404);
+            ], 422);
         }
         try {
             $technology_id = intVal($request->technology_id);

@@ -36,14 +36,14 @@ class Technology extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required', 
-            'image' => 'required|mimes:jpeg,jpg,png,gif', 
+            'name' => 'required|unique:technologies', 
+            'image' => 'required|unique:technologies', 
             'id_hard' => 'required|exists:hard_skills,id'
         ]);
         if ($validator->fails()) {
             return response()->json([
                 'fail' => $validator->errors(),
-            ], 404);
+            ], 422);
         }
 
         try {
