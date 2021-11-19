@@ -14,6 +14,6 @@ class TechnologyResource extends JsonResource
      */
     public function toArray($request)
     {
-        return ['name' => $this->name, 'image' => $this->name, 'id_hard' => $this->id_hard];
+        return ['id' => $this->id, 'name' => $this->name, 'image' => $this->name, 'id_hard' => $this->id_hard];
     }
 }

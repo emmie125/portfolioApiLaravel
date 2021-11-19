@@ -15,7 +15,7 @@ class SoftSkillResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title'=>$this->title
+            'id' => $this->id, 'title' => $this->title
         ];
     }
 }

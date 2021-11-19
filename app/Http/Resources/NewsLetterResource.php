@@ -15,7 +15,7 @@ class NewsLetterResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'email'=>$this->email,
+            'id' => $this->id, 'email' => $this->email,
         ];
     }
 }
