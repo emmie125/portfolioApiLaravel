@@ -49,7 +49,6 @@ class Kernel extends HttpKernel
             \Fruitcake\Cors\HandleCors::class,
             // \Fruitcake\Cors\HandleCors::class,
         ],
-        'cors' => [\App\Http\Middleware\Cors::class]
     ];
 
     /**
