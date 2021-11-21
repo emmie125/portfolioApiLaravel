@@ -18,7 +18,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\Cors::class,
         \App\Http\Middleware\TrustProxies::class,
         \Barryvdh\Cors\HandleCors::class,
-        // \Fruitcake\Cors\HandleCors::class,
+        \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -46,10 +46,10 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Fruitcake\Cors\HandleCors::class,
             // \Fruitcake\Cors\HandleCors::class,
-            \Barryvdh\Cors\HandleCors::class,
-
         ],
+        'cors' => [\App\Http\Middleware\Cors::class]
     ];
 
     /**

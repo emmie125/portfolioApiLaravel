@@ -23,11 +23,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware(['cors'])->group(function () {
-    Route::apiResource('soft_skills', SoftSkill::class);
-    Route::apiResource('hard_skills', HardSkill::class);
-    Route::apiResource('contacts', Contact::class);
-    Route::apiResource('new_letters', NewLetter::class);
-    Route::apiResource('projects', Project::class);
-    Route::apiResource('technologies', Technology::class);
-});
+Route::apiResource('soft_skills', SoftSkill::class);
+Route::apiResource('hard_skills', HardSkill::class);
+Route::apiResource('contacts', Contact::class);
+Route::apiResource('new_letters', NewLetter::class);
+Route::apiResource('projects', Project::class);
+Route::apiResource('technologies', Technology::class);

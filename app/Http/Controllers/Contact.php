@@ -18,8 +18,7 @@ class Contact extends Controller
     {
         try {
             $contactSkill = ContactModel::paginate(5);
-        return  ContactResource::collection($contactSkill);
-
+            return  ContactResource::collection($contactSkill);
         } catch (\Throwable $th) {
             return response()->json([
                 'fail' => $th
