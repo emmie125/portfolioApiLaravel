@@ -42,9 +42,12 @@ class Contact extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'fail' => $validator->errors(),
+                'fail' => $validator,
             ], 422);
         }
+        response()->json([
+            'fail' => $validator->errors(),
+        ], 200);
 
         try {
             ContactModel::create($request->all());
