@@ -17,7 +17,7 @@ class HardSkill extends Controller
     public function index()
     {
         $hardSkill = HardSkillModel::paginate(5);
-        return  response()->json(HardSkillResource::collection($hardSkill)) ;
+        return  HardSkillResource::collection($hardSkill);
     }
 
     /**
