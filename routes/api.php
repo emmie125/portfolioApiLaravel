@@ -25,11 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => 'cors'], function () {
+    Route::apiResource('soft_skills', SoftSkill::class);
+    Route::apiResource('hard_skills', HardSkill::class);
+    Route::apiResource('contacts', Contact::class);
+    Route::apiResource('new_letters', NewLetter::class);
+    Route::apiResource('projects', Project::class);
+    Route::apiResource('technologies', Technology::class);
 });
-
-Route::apiResource('soft_skills', SoftSkill::class);
-Route::apiResource('hard_skills', HardSkill::class);
-Route::apiResource('contacts', Contact::class);
-Route::apiResource('new_letters', NewLetter::class);
-Route::apiResource('projects', Project::class);
-Route::apiResource('technologies', Technology::class);
