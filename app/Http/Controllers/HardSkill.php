@@ -6,7 +6,7 @@ use App\Http\Resources\HardSkillResource;
 use App\Models\HardSkill as HardSkillModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
 class HardSkill extends Controller
 {
     /**
@@ -16,8 +16,12 @@ class HardSkill extends Controller
      */
     public function index()
     {
-        $hardSkill = HardSkillModel::paginate(5);
-        return  HardSkillResource::collection($hardSkill);
+        $hardSkill = DB::table('hard_skills')
+            ->join('technologies', 'hard_skills.id', '=', 'technologies.id_hard')
+            ->select('hard_skills.*', 'technologies.*')
+            ->get();
+        return  $hardSkill;
+
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\Technology as TechnologyModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+
 class Technology extends Controller
 {
     /**
@@ -36,8 +37,8 @@ class Technology extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:technologies', 
-            'image' => 'required|unique:technologies', 
+            'name' => 'required|unique:technologies',
+            'image' => 'required|unique:technologies',
             'id_hard' => 'required|exists:hard_skills,id'
         ]);
         if ($validator->fails()) {
