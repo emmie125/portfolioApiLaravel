@@ -39,7 +39,7 @@ class Project extends Controller
         $validator = Validator::make($request->all(), [
             'technology_id' => 'exists:technologies,id', 
             'title' => 'required', 
-            'image' => 'required|mimes:jpeg,jpg,png,gif', 
+            'image' => 'required', 
             'description'=> 'required'
         ]);
 

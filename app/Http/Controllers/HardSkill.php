@@ -19,6 +19,7 @@ class HardSkill extends Controller
         $hardSkill = DB::table('hard_skills')
             ->join('technologies', 'hard_skills.id', '=', 'technologies.id_hard')
             ->select('hard_skills.*', 'technologies.*')
+            ->limit(10)
             ->get();
         return  $hardSkill;
 
